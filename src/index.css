@@ -1,14 +1,49 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Lato', sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.page-title {
+  margin-left: 5vw;
 }
+
+.expense-table {
+  width: 75vw;
+  margin-left: 6vw;
+}
+
+.expense-table-header {
+  font-weight: bold;
+}
+
+.add-btn {
+  margin-top: 7vh;
+}
+
+.add-expense-form {
+  margin-left: 6vw;
+  margin-bottom: 10vh;
+}
+
+.register-btn {
+  margin-left: 6vw;
+  margin-bottom: 5vh;
+}
+
+nav > div.nav-wrapper  {
+  background-color: white;
+  border-bottom: none;
+}
+
+div.nav-wrapper > a {
+  padding-left: 5vw;
+  color: black;
+}
+
+ul.right > li {
+  padding-right: 2vw;
+}
+
+ul.right > li > a{
+  color: black;
+}
+
