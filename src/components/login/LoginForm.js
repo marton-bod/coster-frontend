@@ -3,7 +3,18 @@ import React, {Component} from 'react'
 class LoginForm extends Component {
 
     state = {
+        email: "",
+        password: ""
+    }
 
+    handleInputChange = (e) => {
+        this.setState({ [e.target.id]: e.target.value })
+        console.log(this.state)
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.loginUser(this.state)
     }
 
     render() {
@@ -22,8 +33,8 @@ class LoginForm extends Component {
                                 <label htmlFor="password">Password</label>
                             </div>
                         </div>
-                        <button class="btn waves-effect waves-light" type="submit" name="action"> Login
-                            <i class="material-icons right">exit_to_app</i>
+                        <button className="btn waves-effect waves-light" type="submit" name="action"> Login
+                            <i className="material-icons right">exit_to_app</i>
                         </button>   
                     </form>
                 </div>

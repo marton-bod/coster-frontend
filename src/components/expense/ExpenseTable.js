@@ -15,7 +15,11 @@ class ExpenseTable extends Component {
                         <td>{ e.location }</td>
                         <td>{ e.amount } </td>
                         <td>{ e.date }</td>
-                        <td><button className="btn" onClick={() => {this.props.deleteExpense(e.id)}}></button></td>
+                        <td>{ e.category }</td>
+                        <td><button className="btn" onClick={() => {this.props.editExpense(e)}}>
+                            <i className="material-icons">edit</i></button></td>
+                        <td><button className="btn red" onClick={() => {this.props.deleteExpense(e.id)}}>
+                            <i className="material-icons">delete</i></button></td>
                     </tr>
                 )
             })
@@ -31,6 +35,8 @@ class ExpenseTable extends Component {
                             <th>Location</th>
                             <th>Amount</th>
                             <th>Date</th>
+                            <th>Category</th>
+                            <th>Edit</th>
                             <th>Delete</th>
                         </tr>
                     </thead>

@@ -2,6 +2,10 @@ body {
   font-family: 'Lato', sans-serif;
 }
 
+.row {
+  margin-bottom: 0px;
+}
+
 .page-title {
   margin-left: 5vw;
 }
@@ -29,6 +33,10 @@ body {
   margin-bottom: 5vh;
 }
 
+.add-expense-btn {
+  margin-top: 5vh;
+}
+
 nav > div.nav-wrapper  {
   background-color: white;
   border-bottom: none;
@@ -41,9 +49,45 @@ div.nav-wrapper > a {
 
 ul.right > li {
   padding-right: 2vw;
+  color: black;
 }
 
 ul.right > li > a{
   color: black;
 }
 
+.logo {
+  width: 30%;
+  height: 25%;
+  margin-top: 2vh;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.type-line {
+  margin-left: 23vw;
+}
+
+.typewriter h5 {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid orange; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .15em; /* Adjust as needed */
+  animation: 
+    typing 8.5s steps(40, end),
+    blink-caret .75s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 80% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: orange; }
+}

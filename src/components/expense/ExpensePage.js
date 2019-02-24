@@ -2,17 +2,20 @@ import React, {Component} from 'react'
 import PageTitle from '../common/PageTitle'
 import ExpenseTable from './ExpenseTable'
 import AddExpenseForm from './AddExpenseForm'
+import EditExpenseForm from './EditExpenseForm'
 import axios from 'axios';
+import Cookies from 'universal-cookie';
+
 
 class ExpensePage extends Component {
     
     state = {
-        showAddForm: false,
-        expenses: [{location: "Spar", amount: 1000, date: '2019-02-10', id: 1}]
+        showPanel: 'table',
+        expenses: [],
+        toEdit: null
     }
 
     componentDidMount() {
-        this.setState({loading: true})
         axios.get('http://localhost:9000/expense/list', { withCredentials: true })
             .then(res => {
                 this.setState({
@@ -21,47 +24,82 @@ class ExpensePage extends Component {
             })
     }
 
-    toggleAddForm = () => {
-        this.setState({showAddForm: !this.state.showAddForm})
+    toggleShowPanel = (panelName) => {
+        this.setState({showPanel: panelName})
     }
 
     deleteExpense = (id) => {
-        let expenses = this.state.expenses.filter(e => {
-            return e.id !== id
-        })
-        this.setState({
-            expenses: expenses
-        })
-        // call database
+        axios.get("http://localhost:9000/expense/delete?id=" + id, {withCredentials: true})
+            .then(res => {
+                let expenses = this.state.expenses.filter(e => {
+                    return e.id !== id
+                })
+                this.setState({
+                    expenses: expenses
+                })
+            })
     }
 
     addExpense = (expense) => {
-        console.log(expense)
-        let expenses = [...this.state.expenses, expense]
-        this.setState({
-            expenses: expenses
-        });
+        const cookies = new Cookies();
+        axios.post("http://localhost:9000/expense/create", { 
+                id: "",
+                location: expense.location,
+                amount: expense.amount,
+                date: expense.date,
+                category: expense.category,
+                userId: cookies.get("auth_id")
+            }, 
+            {withCredentials: true})
+            .then(res => {
+                expense.id = res.id
+                let expenses = [...this.state.expenses, expense]
+                this.setState({
+                    expenses: expenses
+                });
+            })
+    }
+
+    getExpenseToEdit = (expense) => {
+        this.setState({toEdit: expense})
+        this.toggleShowPanel('edit')
+    }
+
+    editExpense = (expense) => {
+        axios.post("http://localhost:9000/expense/modify", expense, 
+            {withCredentials: true})
+            .then(res => {
+                console.log(res)
+                // replace old expense with edited one in table
+            })
     }
     
     render() {
         return (
             <div className="expense-page">
                 <div className="row">
-                    <div class="col s3">
+                    <div className="col s3">
                         <PageTitle title="Expenses" />
                     </div>
-                    <div class="col s1">
-                        <a onClick={this.toggleAddForm} 
-                            class="add-btn btn-floating btn-medium waves-effect waves-light green"><i class="material-icons">add</i></a>
+                    <div className="col s1">
+                        <a onClick={() => {this.toggleShowPanel('add')}} 
+                            className="add-btn btn-floating btn-medium waves-effect waves-light green"><i className="material-icons">add</i></a>
                     </div>
                 </div>
                 <ExpenseTable 
-                    show={!this.state.showAddForm} 
+                    show={this.state.showPanel === 'table'} 
                     expenses={this.state.expenses}
+                    editExpense={this.getExpenseToEdit}
                     deleteExpense={this.deleteExpense}/>
                 <AddExpenseForm 
-                    show={this.state.showAddForm} 
+                    show={this.state.showPanel === 'add'} 
+                    toggle={this.toggleShowPanel}
                     addExpense={this.addExpense}/>
+                <EditExpenseForm 
+                    show={this.state.showPanel === 'edit'}
+                    expense={this.state.toEdit}
+                    toggle={this.toggleShowPanel}
+                    editExpense={this.editExpense}/>
             </div>
         )
     }

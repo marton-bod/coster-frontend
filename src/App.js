@@ -5,6 +5,7 @@ import ExpensePage from './components/expense/ExpensePage'
 import DashboardPage from './components/dashboard/DashboardPage'
 import LoginPage from './components/login/LoginPage'
 import RegisterPage from './components/register/RegisterPage'
+import HomePage from './components/home/HomePage';
 
 class App extends Component {
   
@@ -13,6 +14,7 @@ class App extends Component {
       <BrowserRouter>
         <div className="App">
           <Navbar />
+          <Route exact path="/" component={HomePage} />
           <Route path="/dashboard" component={DashboardPage} />
           <Route path="/expenses" component={ExpensePage} />
           <Route path="/login" component={LoginPage} />

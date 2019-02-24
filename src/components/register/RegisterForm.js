@@ -3,7 +3,23 @@ import React, {Component} from 'react'
 class RegisterForm extends Component {
 
     state = {
+        first_name: "",
+        last_name: "",
+        email: "",
+        password: "",
+        password_confirm: ""
+    }
 
+    handleInputChange = (e) => {
+        this.setState({ [e.target.id]: e.target.value })
+        console.log(this.state)
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        if (this.state.password === this.state.password_confirm) {
+            this.props.registerUser(this.state)
+        }
     }
 
     render() {
@@ -40,8 +56,8 @@ class RegisterForm extends Component {
                                 <label htmlFor="password_confirm">Password confirm</label>
                             </div>
                         </div>
-                        <button class="btn waves-effect waves-light" type="submit" name="action"> Register
-                            <i class="material-icons right">exit_to_app</i>
+                        <button className="btn waves-effect waves-light" type="submit" name="action"> Register
+                            <i className="material-icons right">exit_to_app</i>
                         </button>   
                     </form>
                 </div>
