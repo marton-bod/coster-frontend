@@ -1,4 +1,4 @@
-## Coster frontend application
+## Coster.io - Frontend application
 
 Frontend application responsible for presenting the interactive UI to the user. Developed in React.
 
@@ -8,4 +8,4 @@ Frontend application responsible for presenting the interactive UI to the user. 
 
 ### Run the app:
 - `npm start`
-    - Starts a development server on loclahost:3000
+    - Starts a development server on localhost:3000
