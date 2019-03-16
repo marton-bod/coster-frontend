@@ -1,22 +1,31 @@
 import React, {Component} from 'react'
 import PageTitle from '../common/PageTitle'
+import { getMonthList, getCurrentMonth } from '../common/Utils'
+import MonthPicker from '../common/MonthPicker'
 import ExpenseTable from './ExpenseTable'
 import AddExpenseForm from './AddExpenseForm'
 import EditExpenseForm from './EditExpenseForm'
 import axios from 'axios';
 import Cookies from 'universal-cookie';
-
+import MenuItem from '@material-ui/core/MenuItem';
 
 class ExpensePage extends Component {
     
     state = {
         showPanel: 'table',
         expenses: [],
-        toEdit: null
+        toEdit: null,
+        filter: "",
+        selectedMonth: getCurrentMonth(),
+        monthList: getMonthList()
     }
 
     componentDidMount() {
-        axios.get('http://localhost:9000/expense/list', { withCredentials: true })
+        this.loadExpenseData(this.state.selectedMonth);
+    }
+
+    loadExpenseData = (month) => {
+        axios.get('http://localhost:9000/expense/list?month=' + month, { withCredentials: true })
             .then(res => {
                 this.setState({
                     expenses: res.data
@@ -51,13 +60,6 @@ class ExpensePage extends Component {
                 userId: cookies.get("auth_id")
             }, 
             {withCredentials: true})
-            .then(res => {
-                expense.id = res.id
-                let expenses = [...this.state.expenses, expense]
-                this.setState({
-                    expenses: expenses
-                });
-            })
     }
 
     getExpenseToEdit = (expense) => {
@@ -68,27 +70,51 @@ class ExpensePage extends Component {
     editExpense = (expense) => {
         axios.post("http://localhost:9000/expense/modify", expense, 
             {withCredentials: true})
-            .then(res => {
-                console.log(res)
-                // replace old expense with edited one in table
-            })
+    }
+
+    updateFilter = (e) => {
+        this.setState({
+            filter: e.target.value
+        })
+    }
+
+    updateSelectedMonth = (month) => {
+        this.setState({
+            selectedMonth: month
+        })
+        this.loadExpenseData(month)
     }
     
     render() {
+
+        let monthList = this.state.monthList.map(m => {
+            return (<MenuItem value={m}>{m}</MenuItem>)
+        });
+
         return (
             <div className="expense-page">
-                <div className="row">
-                    <div className="col s3">
-                        <PageTitle title="Expenses" />
-                    </div>
-                    <div className="col s1">
-                        <a onClick={() => {this.toggleShowPanel('add')}} 
-                            className="add-btn btn-floating btn-medium waves-effect waves-light green"><i className="material-icons">add</i></a>
-                    </div>
+                <div className="expense-header-section">
+                    <PageTitle title="Expenses" />
+
+                    <a onClick={() => {this.toggleShowPanel('add')}} 
+                        className="add-btn btn-floating btn-medium waves-effect waves-light green">
+                    <i className="material-icons">add</i></a>
+                    
+                    <MonthPicker
+                        onChange={(e) => this.updateSelectedMonth(e.target.value)}
+                        selectedMonth={this.state.selectedMonth}
+                        monthList={this.state.monthList}>
+                    </MonthPicker>
+
+                    <input onChange={this.updateFilter}
+                        id="filter-input" type='text' placeholder='Search'></input>
                 </div>
+                
+                
                 <ExpenseTable 
                     show={this.state.showPanel === 'table'} 
                     expenses={this.state.expenses}
+                    filter={this.state.filter}
                     editExpense={this.getExpenseToEdit}
                     deleteExpense={this.deleteExpense}/>
                 <AddExpenseForm 

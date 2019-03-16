@@ -17,7 +17,6 @@ class AddExpenseForm extends Component {
         let expense = {...this.state.expense}
         expense[e.target.id] = e.target.value
         this.setState({ expense })
-        console.log(expense);
     }
 
     handleSubmit = (e) => {
@@ -67,6 +66,12 @@ class AddExpenseForm extends Component {
                                 <option value="SUPERMARKET">SUPERMARKET</option>
                                 <option value="EATOUT">EATOUT</option>
                                 <option value="CAFE">CAFE</option>
+                                <option value="SPORTS">SPORTS</option>
+                                <option value="UTILITIES">UTILITIES</option>
+                                <option value="CLOTHES">CLOTHES</option>
+                                <option value="ELECTRONICS">ELECTRONICS</option>
+                                <option value="ENTERTAINMENT">ENTERTAINMENT</option>
+                                <option value="OTHER">OTHER</option>
                             </select>
                         </div>
                         <button className="add-expense-btn btn waves-effect waves-light" type="submit" name="action">Save

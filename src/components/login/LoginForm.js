@@ -9,7 +9,6 @@ class LoginForm extends Component {
 
     handleInputChange = (e) => {
         this.setState({ [e.target.id]: e.target.value })
-        console.log(this.state)
     }
 
     handleSubmit = (e) => {

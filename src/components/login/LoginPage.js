@@ -22,9 +22,12 @@ class LoginPage extends Component {
                     // set cookies
                     cookies.set('auth_id', res.data.userId, { path: '/', expires: tomorrow });
                     cookies.set('auth_token', res.data.authToken, { path: '/', expires: tomorrow });
+                    
+                    // change state to logged_in
+                    this.props.onLogin(user.email);
 
-                    // redirect
-                    this.props.history.push("/expenses")
+                    this.props.history.push("/")
+
                 } else {
                     // error message
                     console.log(res)

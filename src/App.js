@@ -6,18 +6,58 @@ import DashboardPage from './components/dashboard/DashboardPage'
 import LoginPage from './components/login/LoginPage'
 import RegisterPage from './components/register/RegisterPage'
 import HomePage from './components/home/HomePage';
+import Cookies from 'universal-cookie';
 
 class App extends Component {
+
+  state = {
+    logged_in: false,
+    email: null
+  }
+
+  componentWillMount() {
+    const cookies = new Cookies()
+    const token = cookies.get('auth_token')
+    const email = cookies.get('auth_id')
+    if (token && email) {
+      this.setState({
+        logged_in: true,
+        email: email
+      })
+    }
+  }
+
+  setLoginState = (email) => {
+      this.setState({
+        logged_in: true,
+        email: email
+      })
+  }
+
+  loggedOut = () => {
+    const cookies = new Cookies()
+    cookies.remove("auth_token")
+    cookies.remove("auth_id")
+
+    this.setState({
+      logged_in: false,
+      email: null
+    })
+  }
   
   render() {
     return (
       <BrowserRouter>
         <div className="App">
-          <Navbar />
+          <Navbar 
+              isLoggedIn={this.state.logged_in} 
+              email={this.state.email}
+              logout={this.loggedOut}/>
           <Route exact path="/" component={HomePage} />
           <Route path="/dashboard" component={DashboardPage} />
           <Route path="/expenses" component={ExpensePage} />
-          <Route path="/login" component={LoginPage} />
+          <Route path="/login" render={(routes) => 
+              <LoginPage {...routes} onLogin={(email) => this.setLoginState(email)}/>}/>
           <Route path="/register" component={RegisterPage} />
         </div>
       </BrowserRouter>

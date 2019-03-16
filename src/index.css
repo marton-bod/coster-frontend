@@ -13,6 +13,7 @@ body {
 .expense-table {
   width: 75vw;
   margin-left: 6vw;
+  margin-bottom: 15vh;
 }
 
 .expense-table-header {
@@ -21,6 +22,7 @@ body {
 
 .add-btn {
   margin-top: 7vh;
+  margin-left: 2vw;
 }
 
 .add-expense-form {
@@ -35,6 +37,7 @@ body {
 
 .add-expense-btn {
   margin-top: 5vh;
+  margin-right: 1vw;
 }
 
 nav > div.nav-wrapper  {
@@ -65,8 +68,56 @@ ul.right > li > a{
   margin-right: auto;
 }
 
+.chartarea {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-bottom: 10vh;
+}
+
+.chart-item{
+  margin-bottom: 10vh;
+}
+
+.chart-item h5 {
+  font-weight: bold;
+}
+
+.expense-header-section, .dashboard-header-section {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 4vh;
+}
+
+.expense-filter{
+  margin-top: 10vh;
+}
+
+#filter-input {
+  width: 25vw;
+  margin-left: 2vw;
+  margin-top: 5vh;
+}
+
+.summary {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 5vw;
+  margin-bottom: 7vh;
+}
+
+.summary h5 {
+  margin-right: 2vw;
+}
+
 .type-line {
   margin-left: 23vw;
+}
+
+.time-window-dropdown{
+  width: 12vw !important;
+  margin-top: 5vh !important;
+  margin-left: 2vw !important;
 }
 
 .typewriter h5 {
