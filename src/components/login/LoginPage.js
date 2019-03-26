@@ -20,8 +20,8 @@ class LoginPage extends Component {
                     tomorrow.setDate(tomorrow.getDate() + 1);
                     
                     // set cookies
-                    cookies.set('auth_id', res.data.userId, { path: '/', expires: tomorrow });
-                    cookies.set('auth_token', res.data.authToken, { path: '/', expires: tomorrow });
+                    cookies.set('auth_id', res.data.userId, { path: '/', expires: tomorrow, domain: process.env.REACT_APP_COOKIE_DOMAIN });
+                    cookies.set('auth_token', res.data.authToken, { path: '/', expires: tomorrow, domain: process.env.REACT_APP_COOKIE_DOMAIN});
                     
                     // change state to logged_in
                     this.props.onLogin(user.email);
