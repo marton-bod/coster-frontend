@@ -40,10 +40,8 @@ class LoginPage extends Component {
             <div className="login-page">
                 <PageTitle title="Login" />
                 <LoginForm loginUser={this.loginUser}/>
-                <button className="register-btn btn waves-effect waves-light grey" type="submit" name="action"> 
-                    <NavLink style={{ color: 'black' }} 
+                   <NavLink style={{ color: 'black' }} className="register-btn btn waves-effect waves-light grey"
                     to="/register">Not yet registered? Sign up today</NavLink> 
-                </button>
             </div>
         )
     }
