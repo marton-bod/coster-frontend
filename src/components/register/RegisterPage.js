@@ -17,7 +17,7 @@ class RegisterPage extends Component {
     }
 
     registerUser = (user) => {
-        axios.post("http://localhost:9001/auth/register", { 
+        axios.post(process.env.REACT_APP_USER_MANAGEMENT_SVC_URL + "/auth/register", { 
                 emailAddr: user.email,
                 firstName: user.first_name,
                 lastName: user.last_name,

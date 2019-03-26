@@ -35,28 +35,28 @@ class DashboardPage extends Component {
     }
 
     loadCharts = (month) => {
-        axios.get('http://localhost:9002/dashboard/total?month=' + month, { withCredentials: true })
+        axios.get(process.env.REACT_APP_DASHBOARD_SVC_URL + '/dashboard/total?month=' + month, { withCredentials: true })
         .then(res => {
             this.setState({
                 monthlyStats: res.data
             })
         })
 
-    axios.get('http://localhost:9002/dashboard/daily?month=' + month, { withCredentials: true })
+    axios.get(process.env.REACT_APP_DASHBOARD_SVC_URL + '/dashboard/daily?month=' + month, { withCredentials: true })
         .then(res => {
             this.setState({
                 dailyTotals: res.data
             })
         })
 
-    axios.get('http://localhost:9002/dashboard/category?month=' + month, { withCredentials: true })
+    axios.get(process.env.REACT_APP_DASHBOARD_SVC_URL + '/dashboard/category?month=' + month, { withCredentials: true })
         .then(res => {
             this.setState({
                 categoryTotals: res.data
             })
         })
     
-    axios.get('http://localhost:9002/dashboard/monthly', { withCredentials: true })
+    axios.get(process.env.REACT_APP_DASHBOARD_SVC_URL + '/dashboard/monthly', { withCredentials: true })
         .then(res => {
             this.setState({
                 monthlyTotals: res.data

@@ -9,7 +9,7 @@ import Cookies from 'universal-cookie';
 class LoginPage extends Component {
 
     loginUser = (user) => {
-        axios.post("http://localhost:9001/auth/login", { 
+        axios.post(process.env.REACT_APP_USER_MANAGEMENT_SVC_URL + "/auth/login", { 
                 emailAddr: user.email,
                 password: user.password
             })

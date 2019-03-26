@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 
-const someCommonValues = ['common', 'values'];
-
 export const getMonthList = () => {
     const currDate = new Date()
     const currYear = currDate.getFullYear()

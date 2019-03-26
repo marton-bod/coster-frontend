@@ -25,7 +25,7 @@ class ExpensePage extends Component {
     }
 
     loadExpenseData = (month) => {
-        axios.get('http://localhost:9000/expense/list?month=' + month, { withCredentials: true })
+        axios.get(process.env.REACT_APP_EXPENSE_SVC_URL + '/expense/list?month=' + month, { withCredentials: true })
             .then(res => {
                 this.setState({
                     expenses: res.data
@@ -38,7 +38,7 @@ class ExpensePage extends Component {
     }
 
     deleteExpense = (id) => {
-        axios.get("http://localhost:9000/expense/delete?id=" + id, {withCredentials: true})
+        axios.get(process.env.REACT_APP_EXPENSE_SVC_URL + "/delete?id=" + id, {withCredentials: true})
             .then(res => {
                 let expenses = this.state.expenses.filter(e => {
                     return e.id !== id
@@ -51,7 +51,7 @@ class ExpensePage extends Component {
 
     addExpense = (expense) => {
         const cookies = new Cookies();
-        axios.post("http://localhost:9000/expense/create", { 
+        axios.post(process.env.REACT_APP_EXPENSE_SVC_URL + "/expense/create", { 
                 id: "",
                 location: expense.location,
                 amount: expense.amount,
@@ -68,7 +68,7 @@ class ExpensePage extends Component {
     }
 
     editExpense = (expense) => {
-        axios.post("http://localhost:9000/expense/modify", expense, 
+        axios.post(process.env.REACT_APP_EXPENSE_SVC_URL + "/expense/modify", expense, 
             {withCredentials: true})
     }
 

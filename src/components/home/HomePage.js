@@ -7,7 +7,7 @@ const HomePage = () => {
         <div className="dashboard-page">
             <ImageFadeIn className="logo" src={logo_charts} opacityTransition={3.5} />
             <div className="type-line typewriter">
-                <h5>The best-in-class cost tracking web application.</h5>
+                <h5>Alright, let's save some money!</h5>
             </div>
         </div>
     )
