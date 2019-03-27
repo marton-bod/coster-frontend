@@ -27,7 +27,7 @@ class ExpensePage extends Component {
     loadExpenseData = (month) => {
         const cookies = new Cookies()
         axios.get(process.env.REACT_APP_EXPENSE_SVC_URL + '/expense/list?month=' + month, 
-        { auth_id: cookies.get('auth_id'), auth_token: cookies.get('auth_token') })
+        { headers: { auth_id: cookies.get('auth_id'), auth_token: cookies.get('auth_token') }})
             .then(res => {
                 this.setState({
                     expenses: res.data
