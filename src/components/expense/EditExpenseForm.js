@@ -12,7 +12,14 @@ class EditExpenseForm extends Component {
             id: "",
             userId: ""
         },
-        snackBarOpen: false
+        snackBarOpen: false,
+        errorMsg: ""
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            errorMsg: nextProps.errorMsg
+        })
     }
 
     handleInputChange = (e) => {
@@ -24,14 +31,22 @@ class EditExpenseForm extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        // validate optionally
         
-        this.props.editExpense(this.state.expense)
-        
-        // show success message
-        this.setState({
-            snackBarOpen: true
-        })
+        if (this.validateExpense(this.state.expense)) {
+            this.props.editExpense(this.state.expense)   
+            // show success message
+            this.setState({
+                snackBarOpen: true
+            })
+        } else {
+            this.setState({
+                errorMsg: "All values must be non-null"
+            })
+        }
+    }
+
+    validateExpense = (expense) => {
+        return expense.location && expense.amount && expense.date && expense.category
     }
 
     handleClose = () => {
@@ -49,8 +64,8 @@ class EditExpenseForm extends Component {
     render() {
         let expense = this.state.expense;
         if (this.props.show) {
-            const errorMsg = this.props.errorMsg ? 
-                (<div className="card-panel red accent-3">{this.props.errorMsg}</div>) : null
+            const errorMsg = this.state.errorMsg ? 
+                (<div className="card-panel red accent-3">{this.state.errorMsg}</div>) : null
             return (
                 <div className="add-expense-form">
                     {errorMsg}

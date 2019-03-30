@@ -93,6 +93,10 @@ ul.right > li > a{
   margin-top: 10vh;
 }
 
+.card-panel {
+  width: 35%;
+}
+
 #filter-input {
   width: 25vw;
   margin-left: 2vw;

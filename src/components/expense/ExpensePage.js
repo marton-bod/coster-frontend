@@ -42,7 +42,7 @@ class ExpensePage extends Component {
     deleteExpense = (id) => {
         axios.get(process.env.REACT_APP_EXPENSE_SVC_URL + "/expense/delete?id=" + id, generateAuthHeaders())
             .then(res => {
-                if (res.status == 200) {
+                if (res.status === 200) {
                     let expenses = this.state.expenses.filter(e => {
                         return e.id !== id
                     })
@@ -64,7 +64,7 @@ class ExpensePage extends Component {
                 userId: headers.headers.auth_id
             }, headers)
             .then(res => {
-                if (res.status == 200) {
+                if (res.status === 200) {
                     const newExpense = expense
                     newExpense.id = res.data.id
                     this.setState({
@@ -83,12 +83,12 @@ class ExpensePage extends Component {
         axios.post(process.env.REACT_APP_EXPENSE_SVC_URL + "/expense/modify", expense, 
             generateAuthHeaders())
             .then(res => {
-                if (res.status == 200) {
+                if (res.status === 200) {
                     let expenses = this.state.expenses.filter(e => {
                         return e.id !== expense.id
                     })
                     this.setState({
-                        expenses: [expenses, expense]
+                        expenses: [...expenses, expense]
                     })
                 }
             })
