@@ -38,28 +38,36 @@ class ExpensePage extends Component {
     }
 
     deleteExpense = (id) => {
-        axios.get(process.env.REACT_APP_EXPENSE_SVC_URL + "/delete?id=" + id, generateAuthHeaders())
+        axios.get(process.env.REACT_APP_EXPENSE_SVC_URL + "/expense/delete?id=" + id, generateAuthHeaders())
             .then(res => {
-                let expenses = this.state.expenses.filter(e => {
-                    return e.id !== id
-                })
-                this.setState({
-                    expenses: expenses
-                })
+                if (res.status == 200) {
+                    let expenses = this.state.expenses.filter(e => {
+                        return e.id !== id
+                    })
+                    this.setState({
+                        expenses: expenses
+                    })
+                }
             })
     }
 
     addExpense = (expense) => {
-        const cookies = new Cookies();
+        const headers = generateAuthHeaders()
         axios.post(process.env.REACT_APP_EXPENSE_SVC_URL + "/expense/create", { 
                 id: "",
                 location: expense.location,
                 amount: expense.amount,
                 date: expense.date,
                 category: expense.category,
-                userId: cookies.get("auth_id")
-            }, 
-            generateAuthHeaders())
+                userId: headers.headers.auth_id
+            }, headers)
+            .then(res => {
+                if (res.status == 200) {
+                    this.setState({
+                        expenses: [...this.state.expenses, expense]
+                    })
+                }
+            })
     }
 
     getExpenseToEdit = (expense) => {
@@ -70,6 +78,16 @@ class ExpensePage extends Component {
     editExpense = (expense) => {
         axios.post(process.env.REACT_APP_EXPENSE_SVC_URL + "/expense/modify", expense, 
             generateAuthHeaders())
+            .then(res => {
+                if (res.status == 200) {
+                    let expenses = this.state.expenses.filter(e => {
+                        return e.id !== expense.id
+                    })
+                    this.setState({
+                        expenses: [expenses, expense]
+                    })
+                }
+            })
     }
 
     updateFilter = (e) => {
