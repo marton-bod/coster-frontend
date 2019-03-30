@@ -17,8 +17,11 @@ class LoginForm extends Component {
     }
 
     render() {
+        const errorMsg = this.props.errorMsg ? 
+            (<div className="card-panel red accent-3">{this.props.errorMsg}</div>) : null
         return (
             <div className="add-expense-form">
+                    {errorMsg}
                     <form onSubmit={this.handleSubmit} className="col s4">
                         <div className="row">
                             <div className="input-field col s4">

@@ -7,24 +7,37 @@ class RegisterForm extends Component {
         last_name: "",
         email: "",
         password: "",
-        password_confirm: ""
+        password_confirm: "",
+        errorMsg: ""
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            errorMsg: nextProps.errorMsg
+        })
     }
 
     handleInputChange = (e) => {
         this.setState({ [e.target.id]: e.target.value })
-        console.log(this.state)
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
         if (this.state.password === this.state.password_confirm) {
             this.props.registerUser(this.state)
+        } else {
+            this.setState({
+                errorMsg: "Password and confirmation password do not match"
+            })
         }
     }
 
     render() {
+        const errorMsg = this.state.errorMsg ? 
+            (<div className="card-panel red accent-3">{this.state.errorMsg}</div>) : null
         return (
             <div className="add-expense-form">
+                    {errorMsg}
                     <form onSubmit={this.handleSubmit} className="col s4">
                         <div className="row">
                             <div className="input-field col s4">

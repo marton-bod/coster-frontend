@@ -58,7 +58,8 @@ class App extends Component {
           <Route path="/expenses" component={ExpensePage} />
           <Route path="/login" render={(routes) => 
               <LoginPage {...routes} onLogin={(email) => this.setLoginState(email)}/>}/>
-          <Route path="/register" component={RegisterPage} />
+          <Route path="/register" render={(routes) => 
+              <RegisterPage {...routes} onRegister={(email) => this.setLoginState(email)}/>}/>
         </div>
       </BrowserRouter>
     );

@@ -17,7 +17,9 @@ class ExpensePage extends Component {
         toEdit: null,
         filter: "",
         selectedMonth: getCurrentMonth(),
-        monthList: getMonthList()
+        monthList: getMonthList(),
+        addErrorMsg: "",
+        editErrorMsg: ""
     }
 
     componentDidMount() {
@@ -140,12 +142,16 @@ class ExpensePage extends Component {
                 <AddExpenseForm 
                     show={this.state.showPanel === 'add'} 
                     toggle={this.toggleShowPanel}
-                    addExpense={this.addExpense}/>
+                    addExpense={this.addExpense}
+                    errorMsg={this.addErrorMsg}
+                />
                 <EditExpenseForm 
                     show={this.state.showPanel === 'edit'}
                     expense={this.state.toEdit}
                     toggle={this.toggleShowPanel}
-                    editExpense={this.editExpense}/>
+                    editExpense={this.editExpense}
+                    errorMsg={this.editErrorMsg}
+                />
             </div>
         )
     }

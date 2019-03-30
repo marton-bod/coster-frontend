@@ -7,7 +7,8 @@ import Cookies from 'universal-cookie';
 class RegisterPage extends Component {
     
     state = {
-        showRegisterForm: false
+        showRegisterForm: false,
+        registerError: ""
     }
 
     toggleRegisterForm = () => {
@@ -24,21 +25,23 @@ class RegisterPage extends Component {
                 password: user.password
             })
             .then(res => {
-                if (res.data.valid) {
-                    const cookies = new Cookies();
-                    let tomorrow = new Date();
-                    tomorrow.setDate(tomorrow.getDate() + 1);
-                    
-                    // set cookies
-                    cookies.set('auth_id', res.data.userId, { path: '/', expires: tomorrow, domain: process.env.REACT_APP_COOKIE_DOMAIN });
-                    cookies.set('auth_token', res.data.authToken, { path: '/', expires: tomorrow, domain: process.env.REACT_APP_COOKIE_DOMAIN });
-
-                    // redirect
-                    this.props.history.push("/expenses")
-                } else {
-                    // error message
-                    console.log(res)
-                }
+                const cookies = new Cookies();
+                let tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                
+                // set cookies
+                cookies.set('auth_id', res.data.userId, { path: '/', expires: tomorrow, domain: process.env.REACT_APP_COOKIE_DOMAIN });
+                cookies.set('auth_token', res.data.authToken, { path: '/', expires: tomorrow, domain: process.env.REACT_APP_COOKIE_DOMAIN });
+                
+                // change state to logged_in
+                this.props.onRegister(user.email);
+                // redirect
+                this.props.history.push("/expenses")
+            })
+            .catch(error => {
+                this.setState({
+                    registerError: error.response.data.errorMsg.split("\n")[0]
+                })
             })
     }
 
@@ -46,7 +49,10 @@ class RegisterPage extends Component {
         return (
             <div className="login-page">
                 <PageTitle title="Register" />
-                <RegisterForm registerUser={this.registerUser}/>
+                <RegisterForm 
+                    registerUser={this.registerUser}
+                    errorMsg={this.state.registerError}    
+                />
             </div>
         )
     }
