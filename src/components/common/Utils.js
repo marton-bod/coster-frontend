@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Cookies from 'universal-cookie';
 
 export const getMonthList = () => {
     const currDate = new Date()
@@ -17,4 +18,14 @@ export const getMonthList = () => {
 export const getCurrentMonth = () => {
     const currDate = new Date()
     return currDate.getFullYear() + "-" + (currDate.getMonth() + 1)
+}
+
+export const generateAuthHeaders = () => {
+    const cookies = new Cookies()
+    return { headers: 
+        { 
+            auth_id: cookies.get('auth_id'), 
+            auth_token: cookies.get('auth_token') 
+        }
+    }
 }

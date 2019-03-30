@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PageTitle from '../common/PageTitle'
-import { getMonthList, getCurrentMonth } from '../common/Utils'
+import { getMonthList, getCurrentMonth, generateAuthHeaders } from '../common/Utils'
 import MonthPicker from '../common/MonthPicker'
 import ExpenseTable from './ExpenseTable'
 import AddExpenseForm from './AddExpenseForm'
@@ -25,9 +25,7 @@ class ExpensePage extends Component {
     }
 
     loadExpenseData = (month) => {
-        const cookies = new Cookies()
-        axios.get(process.env.REACT_APP_EXPENSE_SVC_URL + '/expense/list?month=' + month, 
-        { headers: { auth_id: cookies.get('auth_id'), auth_token: cookies.get('auth_token') }})
+        axios.get(process.env.REACT_APP_EXPENSE_SVC_URL + '/expense/list?month=' + month, generateAuthHeaders())
             .then(res => {
                 this.setState({
                     expenses: res.data
@@ -40,7 +38,7 @@ class ExpensePage extends Component {
     }
 
     deleteExpense = (id) => {
-        axios.get(process.env.REACT_APP_EXPENSE_SVC_URL + "/delete?id=" + id, {withCredentials: true})
+        axios.get(process.env.REACT_APP_EXPENSE_SVC_URL + "/delete?id=" + id, generateAuthHeaders())
             .then(res => {
                 let expenses = this.state.expenses.filter(e => {
                     return e.id !== id
@@ -61,7 +59,7 @@ class ExpensePage extends Component {
                 category: expense.category,
                 userId: cookies.get("auth_id")
             }, 
-            {withCredentials: true})
+            generateAuthHeaders())
     }
 
     getExpenseToEdit = (expense) => {
@@ -71,7 +69,7 @@ class ExpensePage extends Component {
 
     editExpense = (expense) => {
         axios.post(process.env.REACT_APP_EXPENSE_SVC_URL + "/expense/modify", expense, 
-            {withCredentials: true})
+            generateAuthHeaders())
     }
 
     updateFilter = (e) => {

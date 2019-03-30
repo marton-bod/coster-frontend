@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PageTitle from '../common/PageTitle'
-import { getMonthList, getCurrentMonth } from '../common/Utils'
+import { getMonthList, getCurrentMonth, generateAuthHeaders } from '../common/Utils'
 import MonthPicker from '../common/MonthPicker'
 import axios from 'axios'
 import { 
@@ -35,28 +35,28 @@ class DashboardPage extends Component {
     }
 
     loadCharts = (month) => {
-        axios.get(process.env.REACT_APP_DASHBOARD_SVC_URL + '/dashboard/total?month=' + month, { withCredentials: true })
+        axios.get(process.env.REACT_APP_DASHBOARD_SVC_URL + '/dashboard/total?month=' + month, generateAuthHeaders())
         .then(res => {
             this.setState({
                 monthlyStats: res.data
             })
         })
 
-    axios.get(process.env.REACT_APP_DASHBOARD_SVC_URL + '/dashboard/daily?month=' + month, { withCredentials: true })
+    axios.get(process.env.REACT_APP_DASHBOARD_SVC_URL + '/dashboard/daily?month=' + month, generateAuthHeaders())
         .then(res => {
             this.setState({
                 dailyTotals: res.data
             })
         })
 
-    axios.get(process.env.REACT_APP_DASHBOARD_SVC_URL + '/dashboard/category?month=' + month, { withCredentials: true })
+    axios.get(process.env.REACT_APP_DASHBOARD_SVC_URL + '/dashboard/category?month=' + month, generateAuthHeaders())
         .then(res => {
             this.setState({
                 categoryTotals: res.data
             })
         })
     
-    axios.get(process.env.REACT_APP_DASHBOARD_SVC_URL + '/dashboard/monthly', { withCredentials: true })
+    axios.get(process.env.REACT_APP_DASHBOARD_SVC_URL + '/dashboard/monthly', generateAuthHeaders())
         .then(res => {
             this.setState({
                 monthlyTotals: res.data
