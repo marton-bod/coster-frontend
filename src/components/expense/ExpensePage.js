@@ -63,8 +63,10 @@ class ExpensePage extends Component {
             }, headers)
             .then(res => {
                 if (res.status == 200) {
+                    const newExpense = expense
+                    newExpense.id = res.data.id
                     this.setState({
-                        expenses: [...this.state.expenses, expense]
+                        expenses: [...this.state.expenses, newExpense]
                     })
                 }
             })
