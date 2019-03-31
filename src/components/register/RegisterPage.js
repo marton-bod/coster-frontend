@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import PageTitle from '../common/PageTitle'
 import RegisterForm from './RegisterForm'
+import { getErrorDisplayMessage } from '../common/Utils'
 import axios from 'axios'
 import Cookies from 'universal-cookie';
 
@@ -40,7 +41,7 @@ class RegisterPage extends Component {
             })
             .catch(error => {
                 this.setState({
-                    registerError: error.response.data.errorMsg.split("\n")[0]
+                    registerError: getErrorDisplayMessage(error)
                 })
             })
     }

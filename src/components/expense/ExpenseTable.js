@@ -62,7 +62,7 @@ class ExpenseTable extends Component {
                     )
                 })
         } else { 
-            expenses = ( <h4>No expenses</h4>)
+            expenses = ( <div className="no-expenses-msg">You have no expenses yet for this period.</div>)
         }
         
         return (

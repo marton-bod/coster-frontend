@@ -1,12 +1,11 @@
 import React, {Component} from 'react'
 import PageTitle from '../common/PageTitle'
-import { getMonthList, getCurrentMonth, generateAuthHeaders } from '../common/Utils'
+import { getMonthList, getCurrentMonth, generateAuthHeaders, getErrorDisplayMessage } from '../common/Utils'
 import MonthPicker from '../common/MonthPicker'
 import ExpenseTable from './ExpenseTable'
 import AddExpenseForm from './AddExpenseForm'
 import EditExpenseForm from './EditExpenseForm'
 import axios from 'axios';
-import Cookies from 'universal-cookie';
 import MenuItem from '@material-ui/core/MenuItem';
 
 class ExpensePage extends Component {
@@ -64,13 +63,16 @@ class ExpensePage extends Component {
                 userId: headers.headers.auth_id
             }, headers)
             .then(res => {
-                if (res.status === 200) {
-                    const newExpense = expense
-                    newExpense.id = res.data.id
-                    this.setState({
-                        expenses: [...this.state.expenses, newExpense]
-                    })
-                }
+                const newExpense = expense
+                newExpense.id = res.data.id
+                this.setState({
+                    expenses: [...this.state.expenses, newExpense]
+                })
+            })
+            .catch(error =>  {
+                this.setState({
+                    addErrorMsg: getErrorDisplayMessage(error)
+                })
             })
     }
 
@@ -83,14 +85,17 @@ class ExpensePage extends Component {
         axios.post(process.env.REACT_APP_EXPENSE_SVC_URL + "/expense/modify", expense, 
             generateAuthHeaders())
             .then(res => {
-                if (res.status === 200) {
-                    let expenses = this.state.expenses.filter(e => {
-                        return e.id !== expense.id
-                    })
-                    this.setState({
-                        expenses: [...expenses, expense]
-                    })
-                }
+                let expenses = this.state.expenses.filter(e => {
+                    return e.id !== expense.id
+                })
+                this.setState({
+                    expenses: [...expenses, expense]
+                })
+            })
+            .catch(error => {
+                this.setState({
+                    editErrorMsg: getErrorDisplayMessage(error)
+                })
             })
     }
 

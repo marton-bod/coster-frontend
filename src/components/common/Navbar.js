@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import { NavLink, withRouter } from 'react-router-dom'
+import logo from '../../images/logo_snippet.png';
+
 
 class Navbar extends Component {
 
@@ -25,6 +27,7 @@ class Navbar extends Component {
           <nav>
           <div className="nav-wrapper">
             <NavLink to="/" className="brand-logo">Coster.io</NavLink>
+            <img src={logo} className="navbar-logo"/>
             <ul className="right hide-on-med-and-down">
               {dashboard}
               {expenses}

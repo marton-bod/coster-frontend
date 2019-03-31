@@ -36,35 +36,35 @@ class RegisterForm extends Component {
         const errorMsg = this.state.errorMsg ? 
             (<div className="card-panel red accent-3">{this.state.errorMsg}</div>) : null
         return (
-            <div className="add-expense-form">
+            <div className="login-form">
                     {errorMsg}
-                    <form onSubmit={this.handleSubmit} className="col s4">
+                    <form onSubmit={this.handleSubmit}>
                         <div className="row">
-                            <div className="input-field col s4">
+                            <div className="input-field">
                                 <input onChange={this.handleInputChange} id="first_name" type="text" className="validate"/>
                                 <label htmlFor="first_name">First Name</label>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="input-field col s4">
+                            <div className="input-field">
                                 <input onChange={this.handleInputChange} id="last_name" type="text" className="validate"/>
                                 <label htmlFor="last_name">Last Name</label>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="input-field col s4">
+                            <div className="input-field">
                                 <input onChange={this.handleInputChange} id="email" type="email" className="validate"/>
                                 <label htmlFor="email">Email</label>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="input-field col s4">
+                            <div className="input-field">
                                 <input onChange={this.handleInputChange} id="password" type="password" className="validate"/>
                                 <label htmlFor="password">Password</label>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="input-field col s4">
+                            <div className="input-field">
                                 <input onChange={this.handleInputChange} id="password_confirm" type="password" className="validate"/>
                                 <label htmlFor="password_confirm">Password confirm</label>
                             </div>

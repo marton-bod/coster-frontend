@@ -2,8 +2,10 @@ import React, {Component} from 'react'
 import PageTitle from '../common/PageTitle'
 import LoginForm from './LoginForm'
 import { NavLink } from 'react-router-dom'
+import { getErrorDisplayMessage } from '../common/Utils'
 import axios from 'axios'
 import Cookies from 'universal-cookie';
+
 
 
 class LoginPage extends Component {
@@ -32,9 +34,8 @@ class LoginPage extends Component {
                 this.props.history.push("/")
             })
             .catch(error => {
-                console.log(error.response)
                 this.setState({
-                    errorMsg: error.response.data.errorMsg.split("\n")[0]
+                    errorMsg: getErrorDisplayMessage(error)
                 })
             })
     }
@@ -47,8 +48,8 @@ class LoginPage extends Component {
                     loginUser={this.loginUser}
                     errorMsg={this.state.errorMsg}
                 />
-                <NavLink className="register-btn btn waves-effect waves-light purple"
-                    to="/register">Not yet registered? Sign up today</NavLink> 
+                <NavLink className="register-btn btn waves-effect waves-light white green-text"
+                    to="/register">Create an account</NavLink> 
             </div>
         )
     }

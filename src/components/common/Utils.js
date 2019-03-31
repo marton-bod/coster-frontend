@@ -29,3 +29,9 @@ export const generateAuthHeaders = () => {
         }
     }
 }
+
+export const getErrorDisplayMessage = (error) => {
+    return error.response 
+    ? error.response.data.errorMsg.split("\n")[0] 
+    : "Unexpected error occurred. Please try again later!"
+}
