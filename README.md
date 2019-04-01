@@ -7,5 +7,5 @@ Frontend application responsible for presenting the interactive UI to the user. 
 * `npm install`
 
 ### Run the app:
-- `npm start`
+- `npm run dev`
     - Starts a development server on localhost:3000

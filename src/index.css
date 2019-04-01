@@ -21,7 +21,6 @@ body {
 }
 
 .add-btn {
-  margin-top: 7vh;
   margin-left: 2vw;
 }
 
@@ -106,10 +105,6 @@ ul.right > li > a{
 
 .expense-filter{
   margin-top: 10vh;
-}
-
-.card-panel {
-  width: 35%;
 }
 
 .navbar-logo {
