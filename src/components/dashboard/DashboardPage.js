@@ -72,6 +72,21 @@ class DashboardPage extends Component {
     }
     
     render() {
+        if (!this.state.monthlyStats || this.state.monthlyStats.sum === 0) {
+            return (
+                <div className="dashboard-page">
+                    <div className="dashboard-header-section">
+                        <PageTitle title="Dashboard" />
+                        <MonthPicker
+                            onChange={(e) => this.updateSelectedMonth(e.target.value)}
+                            selectedMonth={this.state.selectedMonth}
+                            monthList={this.state.monthList}>
+                        </MonthPicker>
+                    </div>
+                    <div className="no-expenses-msg page-title">You have no expenses yet for this period.</div>
+                </div>
+            )
+        }
         return (
             <div className="dashboard-page">
                 <div className="dashboard-header-section">

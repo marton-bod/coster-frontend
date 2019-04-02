@@ -22,6 +22,7 @@ body {
 
 .add-btn {
   margin-left: 2vw;
+  margin-top: 3%;
 }
 
 .add-expense-form {
@@ -108,7 +109,7 @@ ul.right > li > a{
 }
 
 .navbar-logo {
-  margin-left: 15.5vw;
+  margin-left: 15%;
   margin-top: 3.5vh;
   width: 5%;
   height: 45%
