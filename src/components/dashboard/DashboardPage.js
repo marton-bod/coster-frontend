@@ -72,7 +72,7 @@ class DashboardPage extends Component {
     }
     
     render() {
-        if (!this.state.monthlyStats || this.state.monthlyStats.sum === 0) {
+        if (this.state.monthlyStats.sum === undefined || this.state.monthlyStats.sum === 0) {
             return (
                 <div className="dashboard-page">
                     <div className="dashboard-header-section">
