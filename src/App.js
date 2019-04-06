@@ -4,6 +4,8 @@ import Navbar from './components/common/Navbar'
 import ExpensePage from './components/expense/ExpensePage'
 import DashboardPage from './components/dashboard/DashboardPage'
 import LoginPage from './components/login/LoginPage'
+import ForgotPasswordForm from './components/login/ForgotPasswordForm'
+import PasswordResetForm from './components/login/PasswordResetForm'
 import RegisterPage from './components/register/RegisterPage'
 import HomePage from './components/home/HomePage';
 import Cookies from 'universal-cookie';
@@ -60,6 +62,9 @@ class App extends Component {
               <LoginPage {...routes} onLogin={(email) => this.setLoginState(email)}/>}/>
           <Route path="/register" render={(routes) => 
               <RegisterPage {...routes} onRegister={(email) => this.setLoginState(email)}/>}/>
+          <Route path="/forgotpwd" component={ForgotPasswordForm} />
+          <Route path="/pwdreset" render={(routes) => 
+              <PasswordResetForm {...routes} onLogin={(email) => this.setLoginState(email)}/>}/>
         </div>
       </BrowserRouter>
     );

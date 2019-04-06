@@ -48,6 +48,8 @@ class LoginPage extends Component {
                     loginUser={this.loginUser}
                     errorMsg={this.state.errorMsg}
                 />
+                <NavLink className="register-btn waves-effect waves-light white blue-text"
+                    to="/forgotpwd">Forgot password?</NavLink>                
                 <NavLink className="register-btn btn waves-effect waves-light white green-text"
                     to="/register">Create an account</NavLink> 
             </div>
