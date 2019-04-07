@@ -34,7 +34,6 @@ class DashboardPage extends Component {
     componentDidMount() {
         this.setState({loading: true})
         this.loadCharts(this.state.selectedMonth)
-        this.setState({loading: false})
     }
 
     loadCharts = (month) => {
@@ -62,7 +61,8 @@ class DashboardPage extends Component {
     axios.get(process.env.REACT_APP_DASHBOARD_SVC_URL + '/dashboard/monthly', generateAuthHeaders())
         .then(res => {
             this.setState({
-                monthlyTotals: res.data
+                monthlyTotals: res.data,
+                loading: false
             })
         })
     }
@@ -103,7 +103,7 @@ class DashboardPage extends Component {
                 </div>
             )
         }
-        
+
         return (
             <div className="dashboard-page">
                 {header}
