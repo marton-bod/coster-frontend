@@ -6,7 +6,6 @@ import ExpenseTable from './ExpenseTable'
 import AddExpenseForm from './AddExpenseForm'
 import EditExpenseForm from './EditExpenseForm'
 import axios from 'axios';
-import MenuItem from '@material-ui/core/MenuItem';
 
 class ExpensePage extends Component {
     
@@ -135,7 +134,6 @@ class ExpensePage extends Component {
                     <input onChange={this.updateFilter}
                         id="filter-input" type='text' placeholder='Search'></input>
                 </div>
-                
                 
                 <ExpenseTable 
                     show={this.state.showPanel === 'table'}

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import PageTitle from '../common/PageTitle'
 import LoginForm from './LoginForm'
 import { NavLink } from 'react-router-dom'
-import { getErrorDisplayMessage } from '../common/Utils'
+import { getErrorDisplayMessage, persistAuthCookies } from '../common/Utils'
 import axios from 'axios'
 import Cookies from 'universal-cookie';
 
@@ -20,17 +20,8 @@ class LoginPage extends Component {
                 password: user.password
             })
             .then(res => {
-                const cookies = new Cookies();
-                let tomorrow = new Date();
-                tomorrow.setDate(tomorrow.getDate() + 1);
-                
-                // set cookies
-                cookies.set('auth_id', res.data.userId, { path: '/', expires: tomorrow });
-                cookies.set('auth_token', res.data.authToken, { path: '/', expires: tomorrow });
-                
-                // change state to logged_in
+                persistAuthCookies(res.data.userId, res.data.authToken)
                 this.props.onLogin(user.email);
-                // redirect
                 this.props.history.push("/")
             })
             .catch(error => {

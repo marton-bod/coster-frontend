@@ -15,7 +15,6 @@ class ForgotPasswordForm extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state.email)
         axios.get(process.env.REACT_APP_USER_MANAGEMENT_SVC_URL + "/auth/forgotpwd?id=" + this.state.email)
             .then(res => {
                 this.setState({

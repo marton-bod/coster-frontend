@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import PageTitle from '../common/PageTitle'
 import axios from 'axios';
 import queryString from 'query-string';
-import Cookies from 'universal-cookie';
+import { persistAuthCookies } from '../common/Utils'
 
 
 class PasswordResetForm extends Component {
@@ -27,14 +27,7 @@ class PasswordResetForm extends Component {
                 token: params.token
             })
             .then(res => {
-                const cookies = new Cookies();
-                let tomorrow = new Date();
-                tomorrow.setDate(tomorrow.getDate() + 1);
-                
-                // set cookies
-                cookies.set('auth_id', res.data.userId, { path: '/', expires: tomorrow });
-                cookies.set('auth_token', res.data.authToken, { path: '/', expires: tomorrow });
-
+                persistAuthCookies(res.data.userId, res.data.authToken)
                 this.props.onLogin(params.id)
                 this.props.history.push("/")
             })

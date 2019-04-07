@@ -26,7 +26,6 @@ class EditExpenseForm extends Component {
         let expense = {...this.state.expense}
         expense[e.target.id] = e.target.value
         this.setState({ expense })
-        console.log(this.state.expense)
     }
 
     handleSubmit = (e) => {

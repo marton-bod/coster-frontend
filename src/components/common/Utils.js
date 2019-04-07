@@ -35,3 +35,11 @@ export const getErrorDisplayMessage = (error) => {
     ? error.response.data.errorMsg.split("\n")[0] 
     : "Unexpected error occurred. Please try again later!"
 }
+
+export const persistAuthCookies = (id, token) => {
+    const cookies = new Cookies();
+    let tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    cookies.set('auth_id', id, { path: '/', expires: tomorrow });
+    cookies.set('auth_token', token, { path: '/', expires: tomorrow });
+}

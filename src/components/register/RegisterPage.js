@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PageTitle from '../common/PageTitle'
 import RegisterForm from './RegisterForm'
-import { getErrorDisplayMessage } from '../common/Utils'
+import { getErrorDisplayMessage, persistAuthCookies } from '../common/Utils'
 import axios from 'axios'
 import Cookies from 'universal-cookie';
 
@@ -26,17 +26,8 @@ class RegisterPage extends Component {
                 password: user.password
             })
             .then(res => {
-                const cookies = new Cookies();
-                let tomorrow = new Date();
-                tomorrow.setDate(tomorrow.getDate() + 1);
-                
-                // set cookies
-                cookies.set('auth_id', res.data.userId, { path: '/', expires: tomorrow, domain: process.env.REACT_APP_COOKIE_DOMAIN });
-                cookies.set('auth_token', res.data.authToken, { path: '/', expires: tomorrow, domain: process.env.REACT_APP_COOKIE_DOMAIN });
-                
-                // change state to logged_in
+                persistAuthCookies(res.data.userId, res.data.authToken)
                 this.props.onRegister(user.email);
-                // redirect
                 this.props.history.push("/expenses")
             })
             .catch(error => {

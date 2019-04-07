@@ -21,7 +21,6 @@ class ExpenseTable extends Component {
     }
 
     anyFieldIncludesFilter = (expense) => {
-        console.log(expense)
         const filter = this.props.filter.toLowerCase();
         return expense.location.toLowerCase().includes(filter) ||
                 expense.date.toLowerCase().includes(filter) ||
