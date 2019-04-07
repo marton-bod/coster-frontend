@@ -18,6 +18,7 @@ from 'react-vis';
 class DashboardPage extends Component {
     
     state = {
+        loading: true,
         monthlyStats: 0,
         dailyTotals: [],
         categoryTotals: [],
@@ -31,7 +32,9 @@ class DashboardPage extends Component {
     }
 
     componentDidMount() {
+        this.setState({loading: true})
         this.loadCharts(this.state.selectedMonth)
+        this.setState({loading: false})
     }
 
     loadCharts = (month) => {
@@ -72,32 +75,38 @@ class DashboardPage extends Component {
     }
     
     render() {
+        const header = (
+            <div className="dashboard-header-section">
+                <PageTitle title="Dashboard" />
+                <MonthPicker
+                    onChange={(e) => this.updateSelectedMonth(e.target.value)}
+                    selectedMonth={this.state.selectedMonth}
+                    monthList={this.state.monthList}>
+                </MonthPicker>
+            </div>
+        )
+
+        if (this.state.loading) {
+            return (
+                <div className="dashboard-page">
+                    {header}
+                    <div className="no-expenses-msg page-title">Loading...</div>
+                </div>
+            )
+        }
+
         if (this.state.monthlyStats.sum === undefined || this.state.monthlyStats.sum === 0) {
             return (
                 <div className="dashboard-page">
-                    <div className="dashboard-header-section">
-                        <PageTitle title="Dashboard" />
-                        <MonthPicker
-                            onChange={(e) => this.updateSelectedMonth(e.target.value)}
-                            selectedMonth={this.state.selectedMonth}
-                            monthList={this.state.monthList}>
-                        </MonthPicker>
-                    </div>
+                    {header}
                     <div className="no-expenses-msg page-title">You have no expenses yet for this period.</div>
                 </div>
             )
         }
+        
         return (
             <div className="dashboard-page">
-                <div className="dashboard-header-section">
-                    <PageTitle title="Dashboard" />
-                    <MonthPicker
-                        onChange={(e) => this.updateSelectedMonth(e.target.value)}
-                        selectedMonth={this.state.selectedMonth}
-                        monthList={this.state.monthList}>
-                    </MonthPicker>
-                </div>
-
+                {header}
                 <div className="summary">
                     <h5>Total: {this.state.monthlyStats.sum}</h5>
                     <h5>Average: {Math.round(this.state.monthlyStats.sum / this.state.monthlyStats.count)}</h5>
