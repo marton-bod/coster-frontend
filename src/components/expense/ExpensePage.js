@@ -13,6 +13,7 @@ class ExpensePage extends Component {
     state = {
         showPanel: 'table',
         expenses: [],
+        loading: true,
         toEdit: null,
         filter: "",
         selectedMonth: getCurrentMonth(),
@@ -26,10 +27,14 @@ class ExpensePage extends Component {
     }
 
     loadExpenseData = (month) => {
+        this.setState({
+            loading: true
+        })
         axios.get(process.env.REACT_APP_EXPENSE_SVC_URL + '/expense/list?month=' + month, generateAuthHeaders())
             .then(res => {
                 this.setState({
-                    expenses: res.data
+                    expenses: res.data,
+                    loading: false
                 })
             })
     }
@@ -41,14 +46,12 @@ class ExpensePage extends Component {
     deleteExpense = (id) => {
         axios.get(process.env.REACT_APP_EXPENSE_SVC_URL + "/expense/delete?id=" + id, generateAuthHeaders())
             .then(res => {
-                if (res.status === 200) {
-                    let expenses = this.state.expenses.filter(e => {
-                        return e.id !== id
-                    })
-                    this.setState({
-                        expenses: expenses
-                    })
-                }
+                let expenses = this.state.expenses.filter(e => {
+                    return e.id !== id
+                })
+                this.setState({
+                    expenses: expenses
+                })
             })
     }
 
@@ -114,10 +117,6 @@ class ExpensePage extends Component {
     
     render() {
 
-        let monthList = this.state.monthList.map(m => {
-            return (<MenuItem value={m}>{m}</MenuItem>)
-        });
-
         return (
             <div className="expense-page">
                 <div className="expense-header-section">
@@ -139,7 +138,8 @@ class ExpensePage extends Component {
                 
                 
                 <ExpenseTable 
-                    show={this.state.showPanel === 'table'} 
+                    show={this.state.showPanel === 'table'}
+                    loading={this.state.loading}
                     expenses={this.state.expenses}
                     filter={this.state.filter}
                     editExpense={this.getExpenseToEdit}

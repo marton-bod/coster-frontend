@@ -61,8 +61,10 @@ class ExpenseTable extends Component {
                         </tr>
                     )
                 })
-        } else { 
+        } else if (!this.props.loading) { 
             expenses = ( <div className="no-expenses-msg">You have no expenses yet for this period.</div>)
+        } else {
+            expenses = ( <div className="no-expenses-msg">Loading...</div>)
         }
         
         return (
