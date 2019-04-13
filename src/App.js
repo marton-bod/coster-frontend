@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom'
 import Navbar from './components/common/Navbar'
+import Footer from './components/common/Footer'
 import ExpensePage from './components/expense/ExpensePage'
 import DashboardPage from './components/dashboard/DashboardPage'
 import LoginPage from './components/login/LoginPage'
@@ -65,6 +66,7 @@ class App extends Component {
           <Route path="/forgotpwd" component={ForgotPasswordForm} />
           <Route path="/pwdreset" render={(routes) => 
               <PasswordResetForm {...routes} onLogin={(email) => this.setLoginState(email)}/>}/>
+          <Footer />
         </div>
       </BrowserRouter>
     );

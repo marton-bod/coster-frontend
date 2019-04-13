@@ -60,6 +60,8 @@ class ExpenseTable extends Component {
                         </tr>
                     )
                 })
+        } else if (this.props.errorMsg) {
+            expenses = ( <div className="card-panel red accent-3">{this.props.errorMsg}</div>)
         } else if (!this.props.loading) { 
             expenses = ( <div className="no-expenses-msg">You have no expenses yet for this period.</div>)
         } else {

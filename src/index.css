@@ -6,6 +6,17 @@ body {
   margin-bottom: 0px;
 }
 
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #EDEDED;
+  color: black;
+  text-align: center;
+  padding: 2vh;
+}
+
 .page-title {
   margin-left: 5vw;
 }

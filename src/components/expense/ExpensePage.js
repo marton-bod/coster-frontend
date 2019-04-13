@@ -17,6 +17,7 @@ class ExpensePage extends Component {
         filter: "",
         selectedMonth: getCurrentMonth(),
         monthList: getMonthList(),
+        tableErrorMsg: "",
         addErrorMsg: "",
         editErrorMsg: ""
     }
@@ -33,7 +34,13 @@ class ExpensePage extends Component {
             .then(res => {
                 this.setState({
                     expenses: res.data,
-                    loading: false
+                    loading: false,
+                    tableErrorMsg: null
+                })
+            })
+            .catch(error => {
+                this.setState({
+                    tableErrorMsg: getErrorDisplayMessage(error)
                 })
             })
     }
@@ -141,7 +148,9 @@ class ExpensePage extends Component {
                     expenses={this.state.expenses}
                     filter={this.state.filter}
                     editExpense={this.getExpenseToEdit}
-                    deleteExpense={this.deleteExpense}/>
+                    deleteExpense={this.deleteExpense}
+                    errorMsg={this.state.tableErrorMsg}
+                />
                 <AddExpenseForm 
                     show={this.state.showPanel === 'add'} 
                     toggle={this.toggleShowPanel}

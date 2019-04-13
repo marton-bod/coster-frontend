@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PageTitle from '../common/PageTitle'
-import { getMonthList, getCurrentMonth, generateAuthHeaders } from '../common/Utils'
+import { getMonthList, getCurrentMonth, generateAuthHeaders, getErrorDisplayMessage } from '../common/Utils'
 import MonthPicker from '../common/MonthPicker'
 import axios from 'axios'
 import { 
@@ -29,6 +29,7 @@ class DashboardPage extends Component {
         hoveredCategoryPie: false,
         hoveredMonthly: false,
         hoveredCategoryBar: false,
+        errorMsg: ""
     }
 
     componentDidMount() {
@@ -40,7 +41,13 @@ class DashboardPage extends Component {
         axios.get(process.env.REACT_APP_DASHBOARD_SVC_URL + '/dashboard/total?month=' + month, generateAuthHeaders())
         .then(res => {
             this.setState({
-                monthlyStats: res.data
+                monthlyStats: res.data,
+                errorMsg: ""
+            })
+        })
+        .catch(error => {
+            this.setState({
+                errorMsg: getErrorDisplayMessage(error)
             })
         })
 
@@ -85,6 +92,15 @@ class DashboardPage extends Component {
                 </MonthPicker>
             </div>
         )
+
+        if (this.state.errorMsg) {
+            return (
+                <div className="dashboard-page">
+                    {header}
+                    <div className="card-panel red accent-3">{this.state.errorMsg}</div>
+                </div>
+            )
+        }
 
         if (this.state.loading) {
             return (

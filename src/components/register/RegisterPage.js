@@ -3,7 +3,6 @@ import PageTitle from '../common/PageTitle'
 import RegisterForm from './RegisterForm'
 import { getErrorDisplayMessage, persistAuthCookies } from '../common/Utils'
 import axios from 'axios'
-import Cookies from 'universal-cookie';
 
 class RegisterPage extends Component {
     
