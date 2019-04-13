@@ -28,7 +28,7 @@ class Navbar extends Component {
           <div className="nav-wrapper">
             <NavLink to="/" className="brand-logo">Coster.io</NavLink>
             <img src={logo} className="navbar-logo"/>
-            <ul className="right hide-on-med-and-down">
+            <ul className="right">
               {dashboard}
               {expenses}
               {welcomeMessage}
