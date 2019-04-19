@@ -94,6 +94,7 @@ class EditExpenseForm extends Component {
                                 <option value="CLOTHES">CLOTHES</option>
                                 <option value="ELECTRONICS">ELECTRONICS</option>
                                 <option value="ENTERTAINMENT">ENTERTAINMENT</option>
+                                <option value="TRAVEL">TRAVEL</option>
                                 <option value="OTHER">OTHER</option>
                             </select>
                         </div>
