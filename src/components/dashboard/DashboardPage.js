@@ -125,8 +125,8 @@ class DashboardPage extends Component {
                 {header}
                 <div className="summary">
                     <h5>Total: {this.state.monthlyStats.sum}</h5>
-                    <h5>Average: {Math.round(this.state.monthlyStats.sum / this.state.monthlyStats.count)}</h5>
-                    <h5>Max: {this.state.monthlyStats.max}</h5>
+                    <h5>Daily Average: {Math.round(this.state.monthlyStats.sum / this.state.monthlyStats.count)}</h5>
+                    <h5>Daily Max: {this.state.monthlyStats.max}</h5>
                 </div>
 
                 <div className="chartarea">
